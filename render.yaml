@@ -1,0 +1,26 @@
+# Render Blueprint for Adlogues Billing (https://render.com/docs/blueprint-spec)
+# Render → New → Blueprint → pick this GitHub repo. Secrets marked sync:false are asked for during setup.
+services:
+  - type: web
+    name: adlogues-billing
+    runtime: node
+    plan: free            # sleeps after 15 min idle; first visit then takes ~1 minute. Change to "starter" to keep it awake.
+    region: singapore     # closest Render region to India
+    branch: main
+    # --include=dev is needed because NODE_ENV=production would otherwise skip the build tools (vite, tsc, tsx)
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: MAIL_FROM
+        sync: false       # e.g. Adlogues Billing <billing@invoice.adlogues.com> once the domain is verified in Resend
