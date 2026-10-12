@@ -12,7 +12,7 @@ const TONE: Record<Tone, string> = {
   red: 'bg-red-bg text-red-fg',
   blue: 'bg-blue-bg text-blue-fg',
   violet: 'bg-violet-bg text-violet-fg',
-  grey: 'bg-neutral-100 text-neutral-600',
+  grey: 'bg-subtle-2 text-muted',
 }
 
 // PRD 9: green paid, yellow due soon, red overdue, blue info, pink credit notes/reminders, violet quotations
@@ -43,11 +43,11 @@ export function StatCard({ tone, label, value, hint, icon }: { tone: Tone; label
   return (
     <div className={`rounded-2xl p-5 ${TONE[tone].split(' ')[0]}`}>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-black/70">{label}</span>
+        <span className="text-sm font-medium text-ink/70">{label}</span>
         {icon && <span className={TONE[tone].split(' ')[1]}>{icon}</span>}
       </div>
       <div className="tnum mt-2 text-[26px] font-semibold tracking-tight">{value}</div>
-      {hint && <div className="mt-1 text-[13px] text-black/60">{hint}</div>}
+      {hint && <div className="mt-1 text-[13px] text-ink/60">{hint}</div>}
     </div>
   )
 }
@@ -65,7 +65,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
 }
 
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-line bg-white ${className}`}>{children}</div>
+  return <div className={`rounded-2xl border border-line bg-surface ${className}`}>{children}</div>
 }
 
 export function Modal({ open, title, onClose, children, footer, width = 'max-w-lg' }: {
@@ -80,7 +80,7 @@ export function Modal({ open, title, onClose, children, footer, width = 'max-w-l
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4 pt-[8vh]" onMouseDown={onClose}>
-      <div className={`w-full ${width} rounded-2xl bg-white shadow-xl`} onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-label={title}>
+      <div className={`w-full ${width} rounded-2xl bg-surface shadow-xl`} onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-label={title}>
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 className="text-base font-semibold">{title}</h2>
           <button className="btn-ghost rounded-md p-1" onClick={onClose} aria-label="Close"><X size={18} /></button>
@@ -107,7 +107,7 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
     <label className="inline-flex cursor-pointer items-center gap-2 text-sm">
       <button
         type="button" role="switch" aria-checked={checked} onClick={() => onChange(!checked)}
-        className={`relative h-5 w-9 rounded-full transition-colors ${checked ? 'bg-brand' : 'bg-neutral-300'}`}
+        className={`relative h-5 w-9 rounded-full transition-colors ${checked ? 'bg-brand' : 'bg-line-strong'}`}
       >
         <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${checked ? 'left-[18px]' : 'left-0.5'}`} />
       </button>

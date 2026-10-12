@@ -53,7 +53,7 @@ export default function DocumentsList({ kind }: { kind: 'invoices' | 'quotations
             {tabs.map(([key, label]) => (
               <button
                 key={key}
-                className={`rounded-lg px-3 py-1.5 text-sm ${filter === key ? 'bg-brand-soft font-medium text-brand' : 'text-black/70 hover:bg-neutral-100'}`}
+                className={`rounded-lg px-3 py-1.5 text-sm ${filter === key ? 'bg-brand-soft font-medium text-brand' : 'text-ink/70 hover:bg-subtle-2'}`}
                 onClick={() => setParams(key === 'all' ? {} : { filter: key })}
               >{label}</button>
             ))}
@@ -81,14 +81,14 @@ export default function DocumentsList({ kind }: { kind: 'invoices' | 'quotations
               </thead>
               <tbody>
                 {rows.map(({ d, s, c }) => (
-                  <tr key={d.id} className="cursor-pointer border-b border-line last:border-0 hover:bg-neutral-50" onClick={() => navigate(`/documents/${d.id}`)}>
-                    <td className="px-4 py-3 text-black/70">{fmtDate(d.issueDate)}</td>
+                  <tr key={d.id} className="cursor-pointer border-b border-line last:border-0 hover:bg-subtle" onClick={() => navigate(`/documents/${d.id}`)}>
+                    <td className="px-4 py-3 text-ink/70">{fmtDate(d.issueDate)}</td>
                     <td className="px-4 py-3">
                       <div className="tnum font-medium">{d.number}</div>
                       {d.type !== cfg.newType && <div className="text-xs text-muted">{TYPE_LABEL[d.type]}</div>}
                     </td>
                     <td className="px-4 py-3">{c?.name}</td>
-                    <td className="px-4 py-3 text-black/70">
+                    <td className="px-4 py-3 text-ink/70">
                       {d.type === 'credit_note' ? '—' : fmtDate(d.dueDate)}
                       {s.daysOverdue > 0 && <div className="text-xs text-red-fg">{s.daysOverdue} days late</div>}
                     </td>

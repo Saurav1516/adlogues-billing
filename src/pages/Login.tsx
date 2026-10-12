@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { ArrowLeft, Mail, ShieldCheck } from 'lucide-react'
 import { useAuth } from '../store/AuthContext'
 import { errorText } from '../lib/api'
+import ThemeToggle from '../components/ThemeToggle'
 
 // Email + one-time code. Only the Adlogues owner and Saurav can sign in (server/config.ts).
 export default function Login() {
@@ -89,7 +90,8 @@ export default function Login() {
         <div className="absolute -bottom-32 right-20 h-80 w-80 rounded-full bg-black/10" />
       </div>
 
-      <div className="flex items-center justify-center bg-white p-6">
+      <div className="relative flex items-center justify-center bg-surface p-6">
+        <ThemeToggle className="absolute right-4 top-4" />
         <div className="w-full max-w-sm">
           <div className="mb-8 flex items-center gap-2 lg:hidden">
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand font-bold text-white">A</div>
@@ -113,11 +115,11 @@ export default function Login() {
             </form>
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); void verify() }}>
-              <button type="button" className="link-add mb-6 text-black/70" onClick={() => { setStep('email'); setError('') }}>
+              <button type="button" className="link-add mb-6 text-ink/70" onClick={() => { setStep('email'); setError('') }}>
                 <ArrowLeft size={16} /> Use a different email
               </button>
               <h2 className="text-2xl font-semibold tracking-tight">Check your email</h2>
-              <p className="mt-1 text-sm text-muted">We sent a 6-digit code to <span className="font-medium text-black">{email}</span>. It expires in 5 minutes.</p>
+              <p className="mt-1 text-sm text-muted">We sent a 6-digit code to <span className="font-medium text-ink">{email}</span>. It expires in 5 minutes.</p>
               <div className="mt-6 flex justify-between gap-2">
                 {otp.map((v, i) => (
                   <input

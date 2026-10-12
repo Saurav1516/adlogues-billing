@@ -123,7 +123,7 @@ export default function InvoiceEditor() {
   return (
     <div className="min-h-full bg-canvas">
       {/* Top bar, as in MyBillBook: Exit · title · Edit/Preview · Save & New · Save */}
-      <div className="no-print sticky top-0 z-20 flex flex-wrap items-center gap-3 border-b border-line bg-white px-4 py-3">
+      <div className="no-print sticky top-0 z-20 flex flex-wrap items-center gap-3 border-b border-line bg-surface px-4 py-3">
         <button className="btn btn-outline" onClick={() => navigate(-1)}><ArrowLeft size={16} /> Exit</button>
         <h1 className="mr-auto text-lg font-semibold">{title}</h1>
         <div className="flex rounded-lg border border-line p-0.5 text-sm">
@@ -147,7 +147,7 @@ export default function InvoiceEditor() {
         </div>
       ) : (
         <div className="p-4">
-          <div className="overflow-hidden rounded-2xl border border-line bg-white">
+          <div className="overflow-hidden rounded-2xl border border-line bg-surface">
             {/* Bill To | Details */}
             <div className="grid md:grid-cols-2">
               <div className="border-b border-line md:border-r">
@@ -158,8 +158,8 @@ export default function InvoiceEditor() {
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <div className="font-semibold">{client.name}</div>
-                          <div className="mt-0.5 text-xs text-black/70">{client.address}</div>
-                          <div className="mt-1 text-xs text-black/70">{client.gstin ? `GSTIN ${client.gstin} · ` : 'Unregistered · '}{STATES[client.stateCode]}</div>
+                          <div className="mt-0.5 text-xs text-ink/70">{client.address}</div>
+                          <div className="mt-1 text-xs text-ink/70">{client.gstin ? `GSTIN ${client.gstin} · ` : 'Unregistered · '}{STATES[client.stateCode]}</div>
                         </div>
                         <button className="btn-ghost rounded-md p-1" onClick={() => pickClient('')} aria-label="Change client"><X size={16} /></button>
                       </div>
@@ -195,7 +195,7 @@ export default function InvoiceEditor() {
                 <div className="grid gap-3 p-4 sm:grid-cols-2">
                   <div>
                     <label className="field-label">Number</label>
-                    <input className="field tnum bg-neutral-50" value={doc.number} readOnly title="Assigned in sequence when you save. Cannot be edited." />
+                    <input className="field tnum bg-subtle" value={doc.number} readOnly title="Assigned in sequence when you save. Cannot be edited." />
                   </div>
                   <div>
                     <label className="field-label">Date</label>
@@ -210,7 +210,7 @@ export default function InvoiceEditor() {
                       <div className="flex flex-wrap items-center gap-2">
                         <input className="field tnum max-w-[180px]" type="date" value={doc.dueDate} onChange={(e) => set('dueDate', e.target.value)} />
                         {[7, 15, 30, 45].map((n) => (
-                          <button key={n} className={`rounded-full border px-2.5 py-1 text-xs ${doc.dueDate === addDays(doc.issueDate, n) ? 'border-brand bg-brand-soft text-brand' : 'border-line text-black/70 hover:border-neutral-300'}`} onClick={() => set('dueDate', addDays(doc.issueDate, n))}>{n} days</button>
+                          <button key={n} className={`rounded-full border px-2.5 py-1 text-xs ${doc.dueDate === addDays(doc.issueDate, n) ? 'border-brand bg-brand-soft text-brand' : 'border-line text-ink/70 hover:border-line-strong'}`} onClick={() => set('dueDate', addDays(doc.issueDate, n))}>{n} days</button>
                         ))}
                       </div>
                     </div>
@@ -223,7 +223,7 @@ export default function InvoiceEditor() {
             <div className="overflow-x-auto">
               <table className="w-full min-w-[920px] text-sm">
                 <thead>
-                  <tr className="border-b border-line bg-neutral-50 text-left text-[11px] uppercase tracking-wide text-muted">
+                  <tr className="border-b border-line bg-subtle text-left text-[11px] uppercase tracking-wide text-muted">
                     <th className="w-10 px-3 py-2.5 font-medium">No</th>
                     <th className="px-3 py-2.5 font-medium">Items</th>
                     <th className="w-28 px-3 py-2.5 font-medium">SAC</th>
@@ -271,7 +271,7 @@ export default function InvoiceEditor() {
                 <Plus size={16} /> Add Item
               </button>
             </div>
-            <div className="flex justify-end gap-8 border-b border-line bg-neutral-50 px-6 py-2.5 text-sm">
+            <div className="flex justify-end gap-8 border-b border-line bg-subtle px-6 py-2.5 text-sm">
               <span className="font-medium">Subtotal</span>
               <span className="tnum w-32 text-right font-medium">{money(totals.subtotal)}</span>
             </div>
@@ -295,8 +295,8 @@ export default function InvoiceEditor() {
                 {type !== 'credit_note' && (
                   <div className="flex items-center gap-4 p-4 text-sm">
                     {company.qrImage
-                      ? <img src={company.qrImage} alt="Payment QR code" className="h-16 w-16 object-contain" />
-                      : totals.total > 0 && company.upiId ? <QRCodeSVG value={upiLink(company, totals.total, doc.number)} size={64} /> : <div className="grid h-16 w-16 place-items-center rounded-lg bg-neutral-100 text-muted"><QrCode size={22} /></div>}
+                      ? <img src={company.qrImage} alt="Payment QR code" className="h-16 w-16 rounded bg-white object-contain p-0.5" />
+                      : totals.total > 0 && company.upiId ? <QRCodeSVG value={upiLink(company, totals.total, doc.number)} size={64} /> : <div className="grid h-16 w-16 place-items-center rounded-lg bg-subtle-2 text-muted"><QrCode size={22} /></div>}
                     <div><div className="font-medium">Payment QR</div><div className="text-xs text-muted">{company.qrImage ? 'Your uploaded QR code' : company.upiId ? `UPI ${company.upiId}, with the exact amount` : 'Add a UPI ID or QR in Settings'} · printed on the invoice.</div></div>
                   </div>
                 )}
@@ -306,27 +306,27 @@ export default function InvoiceEditor() {
                 <div className="space-y-2.5 p-4">
                   {showDiscount ? (
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-black/70">Discount (₹)</span>
+                      <span className="text-ink/70">Discount (₹)</span>
                       <input className="field tnum w-36 text-right" inputMode="decimal" value={rupeesInput(doc.extraDiscountPaise)} placeholder="0" onChange={(e) => set('extraDiscountPaise', toPaise(e.target.value.replace(/[^\d.]/g, '')))} />
                     </div>
                   ) : <button className="link-add" onClick={() => setShowDiscount(true)}><Plus size={16} /> Add Discount</button>}
                   <div className="flex justify-between"><span className="font-medium">Taxable Amount</span><span className="tnum">{money(totals.taxable)}</span></div>
                   {doc.gstEnabled && (interState
-                    ? <div className="flex justify-between text-black/70"><span>IGST</span><span className="tnum">{money(totals.igst)}</span></div>
-                    : <><div className="flex justify-between text-black/70"><span>CGST</span><span className="tnum">{money(totals.cgst)}</span></div>
-                      <div className="flex justify-between text-black/70"><span>SGST</span><span className="tnum">{money(totals.sgst)}</span></div></>)}
+                    ? <div className="flex justify-between text-ink/70"><span>IGST</span><span className="tnum">{money(totals.igst)}</span></div>
+                    : <><div className="flex justify-between text-ink/70"><span>CGST</span><span className="tnum">{money(totals.cgst)}</span></div>
+                      <div className="flex justify-between text-ink/70"><span>SGST</span><span className="tnum">{money(totals.sgst)}</span></div></>)}
                   <label className="flex cursor-pointer items-center justify-between">
                     <span className="flex items-center gap-2"><input type="checkbox" className="accent-[#E9252A]" checked={doc.roundOff} onChange={(e) => set('roundOff', e.target.checked)} /> Auto round off</span>
-                    <span className="tnum text-black/70">{totals.roundOff ? `${totals.roundOff > 0 ? '+' : '-'}${money(Math.abs(totals.roundOff))}` : money(0)}</span>
+                    <span className="tnum text-ink/70">{totals.roundOff ? `${totals.roundOff > 0 ? '+' : '-'}${money(Math.abs(totals.roundOff))}` : money(0)}</span>
                   </label>
                 </div>
-                <div className="flex items-center justify-between border-y border-line bg-neutral-50 px-4 py-3.5">
+                <div className="flex items-center justify-between border-y border-line bg-subtle px-4 py-3.5">
                   <span className="text-lg font-semibold">Total Amount</span>
                   <span className="tnum text-xl font-semibold">{money(totals.total)}</span>
                 </div>
                 {isInvoice && !existing && (
                   <div className="space-y-3 p-4">
-                    <div className="text-black/70">Amount received now</div>
+                    <div className="text-ink/70">Amount received now</div>
                     <div className="flex gap-2">
                       <div className="relative flex-1">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted">₹</span>

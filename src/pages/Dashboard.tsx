@@ -70,8 +70,8 @@ export default function Dashboard() {
           <div className="mt-5 space-y-4">
             {buckets.map((b) => (
               <div key={b.label} className="grid grid-cols-[96px_1fr_110px] items-center gap-3 text-sm">
-                <span className="text-black/70">{b.label}</span>
-                <div className="h-2.5 overflow-hidden rounded-full bg-neutral-100">
+                <span className="text-ink/70">{b.label}</span>
+                <div className="h-2.5 overflow-hidden rounded-full bg-subtle-2">
                   <div className={`h-full rounded-full ${b.tone}`} style={{ width: `${(b.amount / maxBucket) * 100}%` }} />
                 </div>
                 <span className="tnum text-right font-medium">{money(b.amount, { compact: true })}</span>
@@ -92,7 +92,7 @@ export default function Dashboard() {
                 <Link to={`/documents/${r.doc.id}`} className="flex items-center justify-between rounded-xl bg-yellow-bg px-3 py-2.5 hover:brightness-[0.98]">
                   <div className="min-w-0">
                     <div className="truncate text-sm font-medium">{clientById(r.doc.clientId)?.name}</div>
-                    <div className="text-xs text-black/60">Due {fmtDate(r.doc.dueDate)}</div>
+                    <div className="text-xs text-ink/60">Due {fmtDate(r.doc.dueDate)}</div>
                   </div>
                   <span className="tnum text-sm font-semibold">{money(r.s.balance, { compact: true })}</span>
                 </Link>
@@ -129,10 +129,10 @@ export default function Dashboard() {
               {recent.map((d) => {
                 const s = summary(d)
                 return (
-                  <tr key={d.id} className="cursor-pointer border-b border-line last:border-0 hover:bg-neutral-50" onClick={() => navigate(`/documents/${d.id}`)}>
+                  <tr key={d.id} className="cursor-pointer border-b border-line last:border-0 hover:bg-subtle" onClick={() => navigate(`/documents/${d.id}`)}>
                     <td className="tnum px-5 py-3 font-medium">{d.number}</td>
                     <td className="px-5 py-3">{clientById(d.clientId)?.name}</td>
-                    <td className="px-5 py-3 text-black/70">{fmtDate(d.issueDate)}</td>
+                    <td className="px-5 py-3 text-ink/70">{fmtDate(d.issueDate)}</td>
                     <td className="tnum px-5 py-3 text-right">{money(s.total)}</td>
                     <td className="tnum px-5 py-3 text-right">{money(s.balance)}</td>
                     <td className="px-5 py-3"><StatusChip status={s.status} /></td>

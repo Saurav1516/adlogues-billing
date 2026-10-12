@@ -29,7 +29,7 @@ function ImageField({ title, hint, value, box, maxSide, disabled, onChange }: {
   }
   return (
     <div className="flex gap-4 rounded-xl border border-line p-4">
-      <div className={`grid shrink-0 place-items-center overflow-hidden rounded-lg border border-dashed border-neutral-300 bg-[repeating-conic-gradient(#f3f3f3_0%_25%,#fff_0%_50%)] bg-[length:16px_16px] ${box}`}>
+      <div className={`grid shrink-0 place-items-center overflow-hidden rounded-lg border border-dashed border-line-strong bg-[repeating-conic-gradient(#f3f3f3_0%_25%,#fff_0%_50%)] bg-[length:16px_16px] ${box}`}>
         {value ? <img src={value} alt={title} className="h-full w-full object-contain p-1" /> : <ImagePlus size={22} className="text-muted" />}
       </div>
       <div className="min-w-0 flex-1">
@@ -143,7 +143,7 @@ export default function Settings() {
       </Card>
 
       {isOwner && (dirty || status === 'saved' || error) && (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 px-4 py-3 backdrop-blur lg:left-64">
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-4 py-3 backdrop-blur lg:left-64">
           <div className="mx-auto flex max-w-5xl items-center justify-end gap-3">
             {error && <span className="mr-auto text-sm text-red-fg" role="alert">{error}</span>}
             {status === 'saved' && !dirty && <span className="text-sm text-green-fg">Saved</span>}

@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#E9252A" />
     <title>Adlogues Billing</title>
+    <script>
+      // Apply the saved light/dark choice before the page paints (no white flash). First visit follows the device setting.
+      try {
+        var t = localStorage.getItem('adl-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (t === 'dark') document.documentElement.classList.add('dark');
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

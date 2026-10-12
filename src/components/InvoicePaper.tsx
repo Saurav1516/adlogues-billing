@@ -24,7 +24,7 @@ export default function InvoicePaper({ doc, client, company, balancePaise, linke
   const showPay = (doc.type === 'invoice' || doc.type === 'proforma') && payable > 0 && Boolean(company.qrImage || company.upiId)
 
   return (
-    <div className="print-area mx-auto w-full max-w-[820px] bg-white p-8 text-[13px] leading-relaxed text-black shadow-sm sm:p-10">
+    <div className="paper print-area mx-auto w-full max-w-[820px] bg-white p-8 text-[13px] leading-relaxed text-black shadow-sm sm:p-10">
       <div className="flex items-start justify-between gap-6 border-b-4 border-brand pb-5">
         <div>
           <div className="flex items-center gap-3">

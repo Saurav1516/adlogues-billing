@@ -90,9 +90,9 @@ export default function DocumentView() {
         <div className="no-print space-y-4">
           {isInvoice && (
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-2xl bg-blue-bg p-4"><div className="text-xs text-black/60">Total</div><div className="tnum mt-1 font-semibold">{money(s.total)}</div></div>
+              <div className="rounded-2xl bg-blue-bg p-4"><div className="text-xs text-ink/60">Total</div><div className="tnum mt-1 font-semibold">{money(s.total)}</div></div>
               <div className={`rounded-2xl p-4 ${s.balance === 0 ? 'bg-green-bg' : s.status === 'overdue' ? 'bg-red-bg' : 'bg-yellow-bg'}`}>
-                <div className="text-xs text-black/60">Balance</div><div className="tnum mt-1 font-semibold">{money(s.balance)}</div>
+                <div className="text-xs text-ink/60">Balance</div><div className="tnum mt-1 font-semibold">{money(s.balance)}</div>
               </div>
             </div>
           )}

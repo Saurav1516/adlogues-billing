@@ -7,6 +7,7 @@ import {
 import { useAuth } from '../store/AuthContext'
 import { useData } from '../store/DataContext'
 import { initials } from '../lib/format'
+import ThemeToggle from './ThemeToggle'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -52,7 +53,7 @@ function CreateButton({ onNavigate }: { onNavigate: () => void }) {
         </button>
       </div>
       {open && (
-        <div className="absolute left-0 right-0 top-full z-30 mt-2 rounded-xl border border-line bg-white py-2 shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-30 mt-2 rounded-xl border border-line bg-surface py-2 shadow-lg">
           {CREATE.map((g) => (
             <div key={g.group} className="pb-1">
               <div className="px-3.5 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-muted">{g.group}</div>
@@ -77,11 +78,11 @@ export default function Layout() {
   useEffect(() => setMobileOpen(false), [location.pathname])
 
   const sidebar = (
-    <aside className="flex h-full w-64 flex-col border-r border-line bg-white">
+    <aside className="flex h-full w-64 flex-col border-r border-line bg-surface">
       <div className="px-4 pb-4 pt-5">
         {company.logo ? (
           <div>
-            <img src={company.logo} alt={company.name} className="h-10 max-w-[200px] object-contain object-left" />
+            <img src={company.logo} alt={company.name} className="h-10 max-w-[200px] object-contain object-left dark:rounded-md dark:bg-white dark:px-1.5 dark:py-1" />
             <div className="mt-1.5 truncate text-xs text-muted">{company.gstin || 'GSTIN not set'}</div>
           </div>
         ) : (
@@ -100,23 +101,24 @@ export default function Layout() {
         {NAV.map((n) => (
           <NavLink
             key={n.to} to={n.to} end={n.end}
-            className={({ isActive }) => `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${isActive ? 'bg-brand-soft font-medium text-brand' : 'text-black/80 hover:bg-neutral-100'}`}
+            className={({ isActive }) => `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${isActive ? 'bg-brand-soft font-medium text-brand' : 'text-ink/80 hover:bg-subtle-2'}`}
           >
             <n.icon size={18} /> {n.label}
           </NavLink>
         ))}
         <div className="px-2 pb-2 pt-5 text-[11px] font-semibold uppercase tracking-wider text-muted">Business</div>
-        <NavLink to="/settings" className={({ isActive }) => `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${isActive ? 'bg-brand-soft font-medium text-brand' : 'text-black/80 hover:bg-neutral-100'}`}>
+        <NavLink to="/settings" className={({ isActive }) => `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${isActive ? 'bg-brand-soft font-medium text-brand' : 'text-ink/80 hover:bg-subtle-2'}`}>
           <Settings size={18} /> Settings
         </NavLink>
       </nav>
       <div className="border-t border-line p-3">
-        <div className="flex items-center gap-3 rounded-lg px-2 py-2">
-          <div className="grid h-8 w-8 place-items-center rounded-full bg-neutral-900 text-xs font-semibold text-white">{initials(session?.name ?? 'A')}</div>
+        <div className="flex items-center gap-2 rounded-lg px-2 py-2">
+          <div className="grid h-8 w-8 place-items-center rounded-full bg-ink text-xs font-semibold text-surface">{initials(session?.name ?? 'A')}</div>
           <div className="min-w-0 flex-1" title={session?.email}>
             <div className="truncate text-sm font-medium">Adlogues</div>
             <div className="truncate text-xs text-muted">{session?.email}</div>
           </div>
+          <ThemeToggle />
           <button className="btn-ghost rounded-md p-1.5" onClick={() => void signOut()} title="Sign out" aria-label="Sign out"><LogOut size={16} /></button>
         </div>
       </div>
@@ -133,11 +135,12 @@ export default function Layout() {
         </div>
       )}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="no-print flex items-center gap-3 border-b border-line bg-white px-4 py-3 lg:hidden">
+        <header className="no-print flex items-center gap-3 border-b border-line bg-surface px-4 py-3 lg:hidden">
           <button className="btn-ghost rounded-md p-1.5" onClick={() => setMobileOpen((o) => !o)} aria-label="Menu">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className="font-semibold">{company.name} Billing</span>
+          <span className="flex-1 font-semibold">{company.name} Billing</span>
+          <ThemeToggle />
         </header>
         <main className="flex-1 overflow-y-auto">
           <Outlet />

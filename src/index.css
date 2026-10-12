@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* dark: utilities follow the toggle (class on <html>), not just the device setting */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Adlogues design tokens (PRD section 9) */
 @theme {
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
@@ -11,6 +14,10 @@
   --color-muted: #6B6B6B;
   --color-line: #E7E7E7;
   --color-canvas: #F7F7F8;
+  --color-surface: #FFFFFF;
+  --color-subtle: #FAFAFA;
+  --color-subtle-2: #F1F1F1;
+  --color-line-strong: #CFCFCF;
 
   /* Pastel cards and status chips: bg + text pairs */
   --color-green-bg: #E8F7EE;
@@ -27,6 +34,44 @@
   --color-violet-fg: #6B3FD1;
 }
 
+/* Dark mode: toggled by the sun/moon button (class "dark" on <html>) */
+html.dark {
+  color-scheme: dark;
+  --color-brand-soft: #3A1517;
+  --color-ink: #EDEDED;
+  --color-muted: #9A9A9A;
+  --color-line: #2A2A2D;
+  --color-line-strong: #3C3C40;
+  --color-canvas: #0E0E10;
+  --color-surface: #18181B;
+  --color-subtle: #1E1E22;
+  --color-subtle-2: #26262B;
+
+  --color-green-bg: #12291C;
+  --color-green-fg: #5FD38D;
+  --color-yellow-bg: #2C2410;
+  --color-yellow-fg: #F2C14E;
+  --color-pink-bg: #2E1622;
+  --color-pink-fg: #F27FB2;
+  --color-red-bg: #331517;
+  --color-red-fg: #FF7A7D;
+  --color-blue-bg: #12213A;
+  --color-blue-fg: #7EB0FF;
+  --color-violet-bg: #221A3D;
+  --color-violet-fg: #B49BFF;
+}
+
+/* The invoice is paper: always light, in both modes and when printed */
+.paper {
+  --color-brand-soft: #FDECEC;
+  --color-ink: #000000;
+  --color-muted: #6B6B6B;
+  --color-line: #E7E7E7;
+  --color-surface: #FFFFFF;
+  --color-subtle: #FAFAFA;
+  color: #000;
+}
+
 html, body, #root { height: 100%; }
 body {
   margin: 0;
@@ -34,6 +79,7 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  transition: background-color .2s, color .2s;
 }
 .tnum { font-variant-numeric: tabular-nums; }
 
@@ -44,7 +90,7 @@ body {
   width: 100%;
   border: 1px solid var(--color-line);
   border-radius: 8px;
-  background: #fff;
+  background: var(--color-surface);
   padding: 8px 10px;
   font-size: 14px;
   outline: none;
@@ -62,17 +108,17 @@ body {
 .btn:disabled { opacity: .5; cursor: not-allowed; }
 .btn-primary { background: var(--color-brand); color: #fff; }
 .btn-primary:hover:not(:disabled) { background: var(--color-brand-dark); }
-.btn-outline { background: #fff; border-color: var(--color-line); color: var(--color-ink); }
-.btn-outline:hover:not(:disabled) { border-color: #cfcfcf; background: #fafafa; }
+.btn-outline { background: var(--color-surface); border-color: var(--color-line); color: var(--color-ink); }
+.btn-outline:hover:not(:disabled) { border-color: var(--color-line-strong); background: var(--color-subtle); }
 .btn-ghost { background: transparent; color: var(--color-ink); }
-.btn-ghost:hover { background: #f1f1f1; }
+.btn-ghost:hover { background: var(--color-subtle-2); }
 .link-add { color: var(--color-brand); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; background: none; border: 0; padding: 0; }
 .link-add:hover { text-decoration: underline; }
 .dashed { border: 1.5px dashed #F3A3A5; border-radius: 8px; }
 }
 
 @media print {
-  body { background: #fff; }
+  body { background: #fff; color: #000; }
   .no-print { display: none !important; }
   .print-area { box-shadow: none !important; margin: 0 !important; border: 0 !important; }
   @page { size: A4; margin: 12mm; }

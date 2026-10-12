@@ -109,7 +109,7 @@ export function ClientsList() {
               </thead>
               <tbody>
                 {rows.map(({ c, b }) => (
-                  <tr key={c.id} className="cursor-pointer border-b border-line last:border-0 hover:bg-neutral-50" onClick={() => navigate(`/clients/${c.id}`)}>
+                  <tr key={c.id} className="cursor-pointer border-b border-line last:border-0 hover:bg-subtle" onClick={() => navigate(`/clients/${c.id}`)}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-violet-bg text-xs font-semibold text-violet-fg">{initials(c.name)}</div>
@@ -117,7 +117,7 @@ export function ClientsList() {
                       </div>
                     </td>
                     <td className="px-4 py-3"><div className="tnum">{c.gstin || <span className="text-muted">Unregistered</span>}</div><div className="text-xs text-muted">{STATES[c.stateCode]}</div></td>
-                    <td className="px-4 py-3 text-black/70">{c.paymentTermsDays} days</td>
+                    <td className="px-4 py-3 text-ink/70">{c.paymentTermsDays} days</td>
                     <td className="tnum px-4 py-3 text-right">{money(b.billed, { compact: true })}</td>
                     <td className="px-4 py-3 text-right">
                       <div className="tnum font-medium">{money(b.balance, { compact: true })}</div>
@@ -219,7 +219,7 @@ export function ClientLedger() {
               <tbody>
                 {withBalance.map((e) => (
                   <tr key={e.key} className="border-b border-line last:border-0">
-                    <td className="px-5 py-3 text-black/70">{fmtDate(e.date)}</td>
+                    <td className="px-5 py-3 text-ink/70">{fmtDate(e.date)}</td>
                     <td className="px-5 py-3">{e.label}</td>
                     <td className="tnum px-5 py-3">{e.link ? <Link className="text-brand hover:underline" to={e.link}>{e.ref}</Link> : e.ref}</td>
                     <td className="tnum px-5 py-3 text-right">{e.debit ? money(e.debit) : ''}</td>
@@ -238,7 +238,7 @@ export function ClientLedger() {
           <div className="border-b border-line px-5 py-4 font-semibold">Quotations</div>
           <ul className="divide-y divide-line">
             {quotes.map((d) => (
-              <li key={d.id}><Link to={`/documents/${d.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-neutral-50">
+              <li key={d.id}><Link to={`/documents/${d.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-subtle">
                 <span className="tnum font-medium">{d.number}</span><span className="text-muted">{fmtDate(d.issueDate)}</span>
                 <span className="tnum">{money(summary(d).total)}</span><StatusChip status={summary(d).status} type={d.type} />
               </Link></li>

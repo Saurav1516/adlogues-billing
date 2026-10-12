@@ -38,11 +38,11 @@ export default function Payments() {
                   const d = documents.find((x) => x.id === p.docId)
                   return (
                     <tr key={p.id} className="border-b border-line last:border-0">
-                      <td className="px-5 py-3 text-black/70">{fmtDate(p.date)}</td>
+                      <td className="px-5 py-3 text-ink/70">{fmtDate(p.date)}</td>
                       <td className="px-5 py-3">{clientById(p.clientId)?.name}</td>
                       <td className="tnum px-5 py-3">{d ? <Link className="text-brand hover:underline" to={`/documents/${d.id}`}>{d.number}</Link> : '—'}</td>
                       <td className="px-5 py-3">{p.isTds ? <Chip tone="pink">TDS</Chip> : <Chip tone="grey">{p.mode}</Chip>}</td>
-                      <td className="px-5 py-3 text-black/70">{p.reference || '—'}</td>
+                      <td className="px-5 py-3 text-ink/70">{p.reference || '—'}</td>
                       <td className="tnum px-5 py-3 text-right font-medium text-green-fg">{money(p.amountPaise)}</td>
                     </tr>
                   )
