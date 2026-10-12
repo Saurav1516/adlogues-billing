@@ -261,9 +261,13 @@ app.use((err: Error & { status?: number; type?: string }, _req: Request, res: Re
   res.status(500).json({ error: 'Something went wrong on the server.' })
 })
 
-app.listen(PORT, () => {
+// On a host (Render etc.) listen on all IPv4 interfaces so its proxy and health check can reach the app
+const HOST = process.env.HOST ?? (IS_PROD ? '0.0.0.0' : undefined)
+const onListen = () => {
   console.log(`\n  Adlogues Billing API  →  http://localhost:${PORT}`)
   console.log(`  Database             →  ${DB_LABEL}`)
   console.log(`  Sign-in emails       →  ${describeEmail()}${IS_PROD ? ' (production)' : ''}\n`)
   if (IS_PROD && !isRemote) console.warn('  ⚠ Production is using a local database file. On Render/Vercel it is wiped on restart: set TURSO_DATABASE_URL.\n')
-})
+}
+if (HOST) app.listen(PORT, HOST, onListen)
+else app.listen(PORT, onListen)
